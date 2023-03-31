@@ -61,4 +61,16 @@
     <xacro:configure_collisions link="5" />
     <xacro:configure_collisions link="6" />
     <xacro:configure_collisions link="7" />
+
+    <!-- Disable collision of FT sensor with all arm links  -->
+    <xacro:property name="link_fmt" value="$(arg arm_id)_link{}" />
+    <xacro:if value="$(arg use_FT_sensor)">
+        <xacro:disable_collisions_for link="$(arg FT_prefix)_mounting" others="${[link_fmt.format(i) for i in python.range(8)]}" />
+    </xacro:if>
+    <!-- Disable collision of FT sensor with all _sc links -->
+    <xacro:property name="link_fmt" value="$(arg arm_id)_link{}_sc" />
+    <xacro:if value="$(arg use_FT_sensor)">
+        <xacro:disable_collisions_for link="$(arg FT_prefix)_mounting" others="${[link_fmt.format(i) for i in python.range(8)]}" />
+    </xacro:if>
+
 </robot>

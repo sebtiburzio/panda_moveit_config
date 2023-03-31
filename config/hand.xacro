@@ -23,6 +23,7 @@
         <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
         <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
         <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
+
         <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
         <!-- Disable collision of hand link with all arm links. These are handled by the *_sc links -->
         <xacro:property name="link_fmt" value="$(arg arm_id)_link{}" />
@@ -41,5 +42,14 @@
         <xacro:disable_collisions_for link="$(arg arm_id)_rightfinger" others="${[link_fmt.format(i) for i in python.range(8)]}" />
         <!-- Disable collision of hand_sc with selected arm sc links -->
         <xacro:disable_collisions_for link="$(arg arm_id)_hand_sc" others="${[link_fmt.format(i) for i in [4,5,6,7]]}" />
+
+        <!-- Disable collision of FT sensor with hand and fingers -->
+        <xacro:if value="$(arg use_FT_sensor)">
+            <disable_collisions link1="$(arg FT_prefix)_mounting" link2="$(arg arm_id)_hand" reason="Never" />
+            <disable_collisions link1="$(arg FT_prefix)_mounting" link2="$(arg arm_id)_hand_sc" reason="Never" />
+            <disable_collisions link1="$(arg FT_prefix)_mounting" link2="$(arg arm_id)_rightfinger" reason="Never" />
+            <disable_collisions link1="$(arg FT_prefix)_mounting" link2="$(arg arm_id)_leftfinger" reason="Never" />
+        </xacro:if>
+
     </xacro:macro>
 </robot>

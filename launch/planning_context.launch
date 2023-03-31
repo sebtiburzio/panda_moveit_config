@@ -8,10 +8,10 @@
   <arg name="robot_description" default="robot_description"/>
 
   <!-- Load universal robot description format (URDF) -->
-  <param name="$(arg robot_description)" command="xacro '$(find franka_description)/robots/panda/panda.urdf.xacro' hand:=$(arg load_gripper) arm_id:=$(arg arm_id)" if="$(arg load_robot_description)" />
+  <param name="$(arg robot_description)" command="xacro '$(find franka_description)/robots/$(arg robot)/$(arg robot).urdf.xacro' hand:=$(arg load_gripper) arm_id:=$(arg arm_id) use_FT_sensor:=$(arg use_FT_sensor) FT_prefix:=$(arg FT_prefix)" if="$(arg load_robot_description)" />
 
   <!-- The semantic description that corresponds to the URDF -->
-  <param name="$(arg robot_description)_semantic" command="xacro '$(find panda_moveit_config)/config/panda.srdf.xacro' hand:=$(arg load_gripper) arm_id:=$(arg arm_id)" />
+  <param name="$(arg robot_description)_semantic" command="xacro '$(find panda_moveit_config)/config/$(arg robot).srdf.xacro' hand:=$(arg load_gripper) arm_id:=$(arg arm_id) use_FT_sensor:=$(arg use_FT_sensor) FT_prefix:=$(arg FT_prefix)" />
 
   <!-- Load updated joint limits (override information from URDF) -->
   <group ns="$(arg robot_description)_planning">

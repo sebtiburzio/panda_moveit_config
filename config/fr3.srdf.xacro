@@ -12,7 +12,7 @@
         <xacro:arm name="$(arg arm_id)_arm" tip_link="$(arg FT_prefix)_wrench"/>
     </xacro:if>
     <xacro:unless value="$(arg use_FT_sensor)">
-        <xacro:arm name="$(arg arm_id)_arm" tip_link="$(arg arm_id)_link8"/>
+        <xacro:arm name="$(arg arm_id)_arm" tip_link="$(arg arm_id)_virtual_EE_link"/>
     </xacro:unless>
     
     <!--Add the hand if people request it-->
